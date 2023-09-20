@@ -5,14 +5,19 @@
  * @returns {string[]}
  */
 
-export function sortStrings(arr, param = 'asc') {
+const collator = new Intl.Collator(['ru', 'en'], {
+  caseFirst: "upper", 
+  sensitivity: "variant",
+  usage: "sort"
+})
 
-  const collator = new Intl.Collator(['ru', 'en'], {
-    caseFirst: "upper", 
-    sensitivity: "variant",
-    usage: "sort"
-  })
-  
+export function sortStrings(arr, param = 'asc') {
   const newArr = [...arr]
-  return param === 'asc' ? newArr.sort(collator.compare) : newArr.sort(collator.compare).reverse()
+
+  return param === 'asc'
+  ?
+  newArr.sort ((a, b) => collator. compare(a, b))
+  :
+  newArr.sort ((a, b) => collator. compare (b, a))
 }
+
